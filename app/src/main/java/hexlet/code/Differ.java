@@ -14,14 +14,16 @@ import java.util.concurrent.Callable;
         description = "Prints the checksum (SHA-256 by default) of a file to STDOUT.")
 class Differ implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "The file whose checksum to calculate.")
-    private String s1;
-    @Parameters(index = "1", description = "The file whose checksum to calculate.")
-    private String s2;
+    @Parameters(index = "0", description = "path to first file")
+    private String filepath1;
+    @Parameters(index = "1", description = "path to second file")
+    private String filepath2;
+    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
+    private String format = "stylish";
 
     @Override
     public Integer call() throws Exception { // your business logic goes here...
-        System.out.printf(generate(s1, s2));
+        System.out.printf(generate(filepath1, filepath2));
         return 0;
     }
     public static String generate (String fiePath1, String filePath2) throws FileNotFoundException {
