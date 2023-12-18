@@ -1,4 +1,5 @@
 package hexlet.code;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -26,9 +27,11 @@ class Differ implements Callable<Integer> {
         System.out.printf(generate(filepath1, filepath2));
         return 0;
     }
-    public static String generate (String fiePath1, String filePath2) throws FileNotFoundException {
-        String s1 = FileComparator.read(fiePath1);
+    public static String generate (String filePath1, String filePath2) throws Exception {
+        String s1 = FileComparator.read(filePath1);
         String s2 = FileComparator.read(filePath2);
+        System.out.println("file1="+JacksonFileComparator.getData(s1));
+        System.out.println("file2="+JacksonFileComparator.getData(s2));
         return FileComparator.compare(s1, s2);
     }
 }
