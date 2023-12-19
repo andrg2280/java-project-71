@@ -1,37 +1,63 @@
 package hexlet.code;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import hexlet.code.parsers.ParserSwitcher;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
+
+import static hexlet.code.JacksonFileComparator.compare;
+import static hexlet.code.parsers.ParserSwitcher.pickParser;
 
 @Command(name = "differ", mixinStandardHelpOptions = true, version = "checksum 4.0",
         description = "Prints the checksum (SHA-256 by default) of a file to STDOUT.")
 class Differ implements Callable<Integer> {
-
+    private static final int SUCCESS = 0;
+    private static final int ERROR = 1;
     @Parameters(index = "0", description = "path to first file")
     private String filepath1;
     @Parameters(index = "1", description = "path to second file")
     private String filepath2;
     @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
-    private String format = "stylish";
-
+    private static String format = "stylish";
     @Override
-    public Integer call() throws Exception { // your business logic goes here...
-        System.out.printf(generate(filepath1, filepath2));
-        return 0;
+    public Integer call() {
+        try {
+            System.out.println(Differ.generate(filepath1, filepath2, format));
+            return SUCCESS;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ERROR;
+        }
     }
-    public static String generate (String filePath1, String filePath2) throws Exception {
-        String s1 = FileComparator.read(filePath1);
-        String s2 = FileComparator.read(filePath2);
-        System.out.println("file1="+JacksonFileComparator.getData(s1));
-        System.out.println("file2="+JacksonFileComparator.getData(s2));
-        return FileComparator.compare(s1, s2);
+    public static String generate(String filepath1, String filepath2, String format) throws Exception {
+        List<Map<String, Object>> listData = compare(getData(filepath1), getData(filepath2));
+        return FormatTypeSwitcher.dataFormatGenerate(listData, format);
+    }
+
+    public static Path getAbsolutePath(String path) {
+        return Paths.get(path).toAbsolutePath().normalize();
+    }
+    public static String getContent(String path) throws IOException {
+        return Files.readString(getAbsolutePath(path));
+    }
+    public static String getFormat(String filepath) {
+        return filepath.substring(filepath.lastIndexOf(".") + 1);
+    }
+    public static Map<String, Object> getData(String path) throws Exception {
+        String content = getContent(path);
+        String format = getFormat(path);
+        return pickParser(format, content);
     }
 }
