@@ -1,6 +1,11 @@
 plugins {
-    id 'java'
+    id  'java'
     id  'application'
+    id  'jacoco'
+    id("checkstyle")
+    id("io.freefair.lombok") version "8.4"
+    id("com.github.ben-manes.versions") version "0.50.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 compileJava {
     options.release = 20
@@ -31,6 +36,29 @@ application {
     mainClass = 'hexlet.code.App'
 }
 
+run {
+    standardInput = System.in
+}
+
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
+checkstyle {
+    toolVersion = '10.3.3'
+}
+
+checkstyleMain {
+    source ='app/src/main/java'
+}
+
+checkstyleTest {
+    source ='app/src/test/java'
 }
