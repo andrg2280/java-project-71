@@ -1,0 +1,13 @@
+Property 'chars2' modified [complex value] to false
+Property 'checked' modified false to true
+Property 'default' modified null to [complex value]
+Property 'id' modified 45 to null
+Property 'key1' deleted
+Property 'key2' added value: 'value2'
+Property 'numbers2' modified [complex value] to [complex value]
+Property 'numbers3' deleted
+Property 'numbers4' added value: [complex value]
+Property 'obj1' added value: [complex value]
+Property 'setting1' modified 'Some value' to 'Another value'
+Property 'setting2' modified 200 to 300
+Property 'setting3' modified true to 'none'

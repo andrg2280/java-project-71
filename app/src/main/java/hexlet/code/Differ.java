@@ -22,7 +22,7 @@ import static hexlet.code.parsers.ParserSwitcher.pickParser;
 
 @Command(name = "differ", mixinStandardHelpOptions = true, version = "checksum 4.0",
         description = "Prints the checksum (SHA-256 by default) of a file to STDOUT.")
-class Differ implements Callable<Integer> {
+public class Differ implements Callable<Integer> {
     private static final int SUCCESS = 0;
     private static final int ERROR = 1;
     @Parameters(index = "0", description = "path to first file")
@@ -47,6 +47,7 @@ class Differ implements Callable<Integer> {
     }
 
     public static Path getAbsolutePath(String path) {
+
         return Paths.get(path).toAbsolutePath().normalize();
     }
     public static String getContent(String path) throws IOException {

@@ -11,7 +11,7 @@ public class ParserSwitcher {
             case "yml", "yaml" -> {
                 return YAMLParser.parse(content);
             }
-            default -> throw new IllegalArgumentException("Unknown extension:" + format
+            default -> throw new IllegalArgumentException("Unknown format:" + format
                     + ". Try again.");
         }
     }
