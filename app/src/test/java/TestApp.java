@@ -33,7 +33,7 @@ public class TestApp {
     public void testDefaultFormat() throws Exception {
         String jsonResult = Differ.generate(jsonFile1, jsonFile2, DEFAULT_FORMAT);
         assertThat(jsonResult).isEqualTo(stylishParsingResult);
-        String yamlResult = Differ.generate(yamlFile1, yamlFile2,DEFAULT_FORMAT);
+        String yamlResult = Differ.generate(yamlFile1, yamlFile2, DEFAULT_FORMAT);
         assertThat(yamlResult).isEqualTo(stylishParsingResult);
     }
     @Test

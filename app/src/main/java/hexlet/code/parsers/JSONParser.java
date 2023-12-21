@@ -10,7 +10,7 @@ public class JSONParser {
     public static Map<String, Object> parse(String content) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.readValue(content, new TypeReference<>() {});
+            return mapper.readValue(content, new TypeReference<>() { });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

@@ -1,17 +1,24 @@
 package hexlet.code;
 
-import java.util.*;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.TreeSet;
+import java.util.Objects;
 
 public class JacksonFileComparator {
     public static Map<String,Object> getData(String content) throws Exception {
         return parse(content);
     }
     public static Map<String,Object> parse(String content) throws JsonProcessingException {
-        return new ObjectMapper().readValue(content, new TypeReference<Map<String,Object>>(){});
+        return new ObjectMapper().readValue(content, new TypeReference<>() {
+        });
     }
     public static List<Map<String, Object>> compare(Map<String, Object> data1, Map<String, Object> data2) {
         List<Map<String, Object>> result = new ArrayList<>();
