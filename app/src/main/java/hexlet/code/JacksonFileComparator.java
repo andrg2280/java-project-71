@@ -13,10 +13,10 @@ import java.util.TreeSet;
 import java.util.Objects;
 
 public class JacksonFileComparator {
-    public static Map<String,Object> getData(String content) throws Exception {
+    public static Map<String, Object> getData(String content) throws Exception {
         return parse(content);
     }
-    public static Map<String,Object> parse(String content) throws JsonProcessingException {
+    public static Map<String, Object> parse(String content) throws JsonProcessingException {
         return new ObjectMapper().readValue(content, new TypeReference<>() {
         });
     }
