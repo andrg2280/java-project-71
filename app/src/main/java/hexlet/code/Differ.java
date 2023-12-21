@@ -23,11 +23,11 @@ public final class Differ implements Callable<Integer> {
     @Parameters(index = "1", description = "path to second file")
     private String filepath2;
     @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
-    private static String format = "stylish";
+    private static String outputFormat = "stylish";
     @Override
     public Integer call() {
         try {
-            System.out.println(Differ.generate(filepath1, filepath2, format));
+            System.out.println(Differ.generate(filepath1, filepath2, outputFormat));
             return SUCCESS;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -35,7 +35,7 @@ public final class Differ implements Callable<Integer> {
         }
     }
     public static String generate(String filepath1, String filepath2) throws Exception {
-        return generate(filepath1, filepath2, format);
+        return generate(filepath1, filepath2, outputFormat);
     }
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
         List<Map<String, Object>> listData = compare(getData(filepath1), getData(filepath2));
