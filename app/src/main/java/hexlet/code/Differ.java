@@ -41,6 +41,9 @@ public class Differ implements Callable<Integer> {
             return ERROR;
         }
     }
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        return generate(filepath1, filepath2, format);
+    }
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
         List<Map<String, Object>> listData = compare(getData(filepath1), getData(filepath2));
         return FormatTypeSwitcher.dataFormatGenerate(listData, format);
