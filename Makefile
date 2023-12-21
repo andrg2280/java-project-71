@@ -11,7 +11,7 @@ start:
 	make -C app start
 
 install:
-	make -C app install
+	make -C app installDists
 
 start-dist:
 	make -C app start-dist
