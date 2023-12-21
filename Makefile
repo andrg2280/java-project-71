@@ -1,16 +1,34 @@
+setup:
+	make -C app setup
+
+clean:
+	make -C app clean
+
 build:
- make -C app build
+	make -C app build
 
-run-dist:
- make -C app run-dist
+start:
+	make -C app start
 
-test:
- make -C app test
+install:
+	make -C app install
 
-report:
- make -C app report
+start-dist:
+	make -C app start-dist
+
+generate-migrations:
+	make -C app generate-migrations
 
 lint:
- make -C app lint
+	make -C app lint
+
+test:
+	make -C app test
+
+report:
+	cd app && ./gradlew jacocoTestReport
+
+check-updates:
+	make -C app check-updates
 
 .PHONY: build
