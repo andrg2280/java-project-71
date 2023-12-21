@@ -6,9 +6,9 @@ import java.util.Map;
 public class Plain {
     public static String generatePlain(List<Map<String, Object>> listData) {
         StringBuilder stringPlain = new StringBuilder();
-        String addedDate = "Property '%s' added value: %s\n";
-        String changedDate = "Property '%s' modified %s to %s\n";
-        String deletedDate = "Property '%s' deleted\n";
+        String addedDate = "Property '%s' was added with value: %s\n";
+        String changedDate = "Property '%s' was updated. From %s to %s\n";
+        String deletedDate = "Property '%s' was removed\n";
         for (Map<String, Object> map: listData) {
             var key = map.get("status").toString();
             switch (key) {
