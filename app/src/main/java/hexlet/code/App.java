@@ -1,5 +1,8 @@
 package hexlet.code;
 import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
 import java.util.concurrent.Callable;
 
 @CommandLine.Command(name = "differ", mixinStandardHelpOptions = true, version = "differ 4.0",
@@ -24,7 +27,7 @@ public class App implements Callable<Integer> {
         }
     }
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new Differ()).execute(args);
+        int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
 }
