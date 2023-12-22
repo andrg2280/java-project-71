@@ -1,13 +1,10 @@
 package hexlet.code;
 import picocli.CommandLine;
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
 import java.util.concurrent.Callable;
 
 @CommandLine.Command(name = "differ", mixinStandardHelpOptions = true, version = "differ 4.0",
         description = "Finds the difference between two JSON or YAML files.")
-public class App implements Callable<Integer> {
+public final class App implements Callable<Integer> {
     private static final int SUCCESS = 0;
     private static final int ERROR = 1;
     @CommandLine.Parameters(index = "0", description = "path to the first file")

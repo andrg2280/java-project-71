@@ -11,7 +11,7 @@ import static hexlet.code.DiffereceTree.compare;
 import static hexlet.code.parsers.ParserSwitcher.pickParser;
 
 
-public final class Differ {
+public class Differ {
 
     public static String generate(String filepath1, String filepath2) throws Exception {
         return generate(filepath1, filepath2, "stylish");
