@@ -12,14 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.TreeSet;
 import java.util.Objects;
 
-public class JacksonFileComparator {
-    public static Map<String, Object> getData(String content) throws Exception {
-        return parse(content);
-    }
-    public static Map<String, Object> parse(String content) throws JsonProcessingException {
-        return new ObjectMapper().readValue(content, new TypeReference<>() {
-        });
-    }
+public class DiffereceTree {
     public static List<Map<String, Object>> compare(Map<String, Object> data1, Map<String, Object> data2) {
         List<Map<String, Object>> result = new ArrayList<>();
 
@@ -28,23 +21,25 @@ public class JacksonFileComparator {
 
         for (String key: keys) {
             Map<String, Object> data = new LinkedHashMap<>();
-            if (!data1.containsKey(key) && data2.containsKey(key)) {
+            Object value1 = data1.get(key);
+            Object value2 = data2.get(key);
+            if (data1.containsKey(key) && !data2.containsKey(key)) {
                 data.put("key", key);
-                data.put("newValue", data2.get(key));
-                data.put("status", "added");
-            } else if (data1.containsKey(key) && !data2.containsKey(key)) {
-                data.put("key", key);
-                data.put("oldValue", data1.get(key));
+                data.put("oldValue", value1);
                 data.put("status", "deleted");
+            } else if (!data1.containsKey(key) && data2.containsKey(key)) {
+                data.put("key", key);
+                data.put("newValue", value2);
+                data.put("status", "added");
             } else if (data1.containsKey(key) && data2.containsKey(key) && !Objects.equals(data1.get(key),
                     (data2.get(key)))) {
                 data.put("key", key);
-                data.put("oldValue", data1.get(key));
-                data.put("newValue", data2.get(key));
+                data.put("oldValue", value1);
+                data.put("newValue", value2);
                 data.put("status", "changed");
             } else {
                 data.put("key", key);
-                data.put("oldValue", data1.get(key));
+                data.put("oldValue", value1);
                 data.put("status", "unchanged");
             }
             result.add(data);

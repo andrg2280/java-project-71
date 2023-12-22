@@ -1,41 +1,20 @@
 package hexlet.code;
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
-import static hexlet.code.JacksonFileComparator.compare;
+import static hexlet.code.DiffereceTree.compare;
 import static hexlet.code.parsers.ParserSwitcher.pickParser;
 
-@Command(name = "differ", mixinStandardHelpOptions = true, version = "checksum 4.0",
-        description = "Prints the checksum (SHA-256 by default) of a file to STDOUT.")
-public final class Differ implements Callable<Integer> {
-    private static final int SUCCESS = 0;
-    private static final int ERROR = 1;
-    @Parameters(index = "0", description = "path to first file")
-    private String filepath1;
-    @Parameters(index = "1", description = "path to second file")
-    private String filepath2;
-    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
-    private static String outputFormat = "stylish";
-    @Override
-    public Integer call() {
-        try {
-            System.out.println(Differ.generate(filepath1, filepath2, outputFormat));
-            return SUCCESS;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ERROR;
-        }
-    }
+
+public final class Differ {
+
     public static String generate(String filepath1, String filepath2) throws Exception {
-        return generate(filepath1, filepath2, outputFormat);
+        return generate(filepath1, filepath2, "stylish");
     }
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
         List<Map<String, Object>> listData = compare(getData(filepath1), getData(filepath2));
@@ -43,12 +22,15 @@ public final class Differ implements Callable<Integer> {
     }
 
     public static Path getAbsolutePath(String path) {
+
         return Paths.get(path).toAbsolutePath().normalize();
     }
     public static String getContent(String path) throws IOException {
-        return Files.readString(getAbsolutePath(path));
+        String absolutePath = String.valueOf(getAbsolutePath(path));
+        return Files.readString(Path.of(absolutePath));
     }
     public static String getFormat(String filepath) {
+
         return filepath.substring(filepath.lastIndexOf(".") + 1);
     }
     public static Map<String, Object> getData(String path) throws Exception {
